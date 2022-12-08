@@ -1,0 +1,64 @@
+Assignment of MiniProject PhoneBook 08-12-2022
+1)Entity Class Contact.java
+
+public class Contact{
+Fields are String Name
+           String Email
+           Integer PhNo
+}
+2)Repository Interface ContactRepository.java
+
+
+public interface ContactRepository extends JpaRepository<Contact ,String>{}
+
+
+3)Service Interface  IContactService.java
+
+
+public interface IContactService having Abstract Methods{
+
+Integer saveContact(Contact c);
+
+void updateContact(Contact c);
+
+void deleteContact(String Email);
+
+Contact getOneContact(String Email);
+
+List<Contact> getAllContacts();
+
+
+} 
+
+4) Service Implementation Class ContactServiceImpl.java
+
+@service
+public class ContactServiceImpl implements IContactService{
+
+@Autowired
+
+private ContactRepository repo;
+
+public String saveContact(Contact c){
+
+c = repo.save(c);
+
+return c.getContEmail();
+
+}
+
+public void updateContact(Contact c){
+
+repo.save(c);
+}
+		   
+public void deleteContact(String Email){
+
+repo.delete(getOneContact(Email));
+}		   
+		   
+public Contact getOneContact(String Email){
+
+return repo.findByEmail(Email);
+}		   
+}
